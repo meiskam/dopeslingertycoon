@@ -418,3 +418,10 @@ div.cash-top {
 	  background: none repeat scroll 0 0 #ffffff;
     border-bottom: 1px solid #aaa;
 }
+
+span.externicon {
+    float: left;
+    fill: currentColor;
+    height: 20px;
+    width: 20px;
+}
