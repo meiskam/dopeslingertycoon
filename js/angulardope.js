@@ -1188,8 +1188,11 @@ var drugsMaster = createDrugsMaster();
             $scope.prestigeDealers = gameSave.prestigeDealers;
             $scope.kingpins = gameSave.kingpins;
             $scope.options = gameSave.options;
+
             $scope.purchaseOffset = -1 * $scope.gameModel.cash;
             cashOneSecond = 0;
+            $scope.cashPerSecondSum = 0;
+            $scope.cashPerSecondStore = [0,0,0,0,0,0,0,0,0,0];
 
             $("#exportModal").modal('hide');
 
