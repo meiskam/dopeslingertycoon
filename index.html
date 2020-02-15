@@ -533,19 +533,19 @@
                             <button onclick="if (confirm('This will reset all progress, are you sure?')) { resetGame(); }" class="btn btn-default"><span class="glyphicon iconred glyphicon-exclamation-sign"></span> Reset game</button>
                         </div>
                         <div class="col-xs-12 col-sm-6">
-                            <button ng-click="toggleWorkMode()" class="btn btn-default"><span class="glyphicon glyphicon-filter iconred"></span> Toggle work mode</button>
+                            <button ng-click="toggleWorkMode()" class="btn btn-default"><span class="glyphicon glyphicon-filter {{options.workMode ? 'iconorange' : 'icongreen'}}"></span> Toggle work mode {{options.workMode ? '(on)' : '(off)'}}</button>
                         </div>
                         <div class="col-xs-12 col-sm-6">
-                            <button ng-click="toggleNightMode()" class="btn btn-default"><span class="glyphicon glyphicon-filter iconred"></span> Toggle night mode</button>
+                            <button ng-click="toggleNightMode()" class="btn btn-default"><span class="glyphicon glyphicon-filter {{options.nightMode ? 'iconorange' : 'icongreen'}}"></span> Toggle night mode {{options.nightMode ? '(on)' : '(off)'}}</button>
                         </div>
                         <div class="col-xs-12 col-sm-6" tooltip="Toggle automatic selling of drugs on the silk road">
-                            <button ng-click="toggleAutoSilk()" class="btn btn-default"><span class="glyphicon glyphicon-cloud icongreen"></span> Auto silk road sell {{options.autoSilk ? '(on)' : '(off)'}}</button>
+                            <button ng-click="toggleAutoSilk()" class="btn btn-default"><span class="glyphicon glyphicon-cloud {{options.autoSilk ? 'iconorange' : 'icongreen'}}"></span> Auto silk road sell {{options.autoSilk ? '(on)' : '(off)'}}</button>
                         </div>
                         <div class="col-xs-12 col-sm-6" tooltip="Export or Import game save">
                             <button ng-click="exportGame()" class="btn btn-default"><span class="glyphicon glyphicon-floppy-disk icongreen"></span> Export/Import game save</button>
                         </div>
                         <div class="col-xs-12 col-sm-6" tooltip="Hide the title section">
-                            <button ng-click="hideTop()" class="btn btn-default"><span class="glyphicon glyphicon-eye-close icongreen"></span> Hide/Show Title</button>
+                            <button ng-click="hideTop()" class="btn btn-default"><span class="glyphicon glyphicon-eye-close {{options.hideTop ? 'iconorange' : 'icongreen'}}"></span> Hide/Show Title {{options.hideTop ? '(on)' : '(off)'}}</button>
                         </div>
                         <div class="col-xs-12 col-sm-6" tooltip="Toggle automatic selling of drugs on the silk road">
                             <button onclick="kongregate.services.resizeGame(1600, 1080);" ng-click="kongregateLargeWindow()" class="btn btn-default"><span class="glyphicon glyphicon-zoom-in icongreen"></span> Larger window</button>
@@ -554,7 +554,7 @@
                             <button onclick="kongregate.services.resizeGame(1199, 700);" ng-click="kongregateSmallWindow()" class="btn btn-default"><span class="glyphicon glyphicon-zoom-out icongreen"></span> Smaller window</button>
                         </div>
                         <div class="col-xs-12 col-sm-6" tooltip="Toggle automatic selling of drugs on the silk road">
-                            <button ng-click="toggleAutoPayCops()" class="btn btn-default"><span class="glyphicon glyphicon-shopping-cart {{options.autoPayCops ? 'icongreen' : 'iconred'}}"></span> Pay cops for new dealers {{options.autoPayCops ? '(on)' : '(off)'}}</button>
+                            <button ng-click="toggleAutoPayCops()" class="btn btn-default"><span class="glyphicon glyphicon-shopping-cart {{options.autoPayCops ? 'iconorange' : 'icongreen'}}"></span> Pay cops for new dealers {{options.autoPayCops ? '(on)' : '(off)'}}</button>
                         </div>
                         <div class="col-xs-12 col-sm-6" style="height: 44px;"></div>
                         <div class="col-xs-12 col-sm-6">

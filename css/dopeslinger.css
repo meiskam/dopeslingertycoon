@@ -124,6 +124,11 @@ div.progress-bar {
     font-size: 18px;
     float: left;
 }
+.iconorange {
+    color: #ff9800;
+    font-size: 18px;
+    float: left;
+}
 .noadjust {
 	margin-right:0;
 }
