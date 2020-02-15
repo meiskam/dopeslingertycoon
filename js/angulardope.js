@@ -376,7 +376,8 @@ var drugsMaster = createDrugsMaster();
       $scope.kingpins = [];
       $scope.options = {
         autoSilk : false,
-        hideTop : false
+        hideTop : false,
+        autoPayCops : false
       };
       $scope.cashPerSecond = 0;
       $scope.cashPerSecondSum = 0;
@@ -508,6 +509,13 @@ var drugsMaster = createDrugsMaster();
         $scope.options.autoSilk = false;
         else
         $scope.options.autoSilk = true;
+      };
+
+      $scope.toggleAutoPayCops = function () {
+        if ($scope.options.autoPayCops)
+        $scope.options.autoPayCops = false;
+        else
+        $scope.options.autoPayCops = true;
       };
 
       $scope.getUpgradesForDrug = function(drug) {
@@ -855,7 +863,7 @@ var drugsMaster = createDrugsMaster();
         $('#hireDealerModal').modal('hide');
         if ($scope.gameModel.dealers.length < 1 + $scope.gameModel.territoryUpgrades && !$scope.dealerHired(dealer.seed)) {
           dealer.drug = 'Weed';
-          dealer.payCops = false;
+          dealer.payCops = $scope.options.autoPayCops;
           $scope.gameModel.dealers.push(dealer);
           writeToCookie();
         } else {
