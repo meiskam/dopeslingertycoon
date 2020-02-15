@@ -381,6 +381,7 @@ var drugsMaster = createDrugsMaster();
       $scope.cashPerSecond = 0;
       $scope.cashPerSecondSum = 0;
       $scope.cashPerSecondStore = [0,0,0,0,0,0,0,0,0,0];
+      $scope.purchaseOffset = 0;
       $scope.prestiged = false;
       $scope.hireDealers = [];
       $scope.toggleWorkMode = function () { $scope.options.workMode = !$scope.options.workMode;};
@@ -589,6 +590,7 @@ var drugsMaster = createDrugsMaster();
           break;
         }
         $scope.gameModel.cash -= upgrade.price * $scope.discountMulti();
+        $scope.purchaseOffset += upgrade.price * $scope.discountMulti();
         $scope.calculateAvailableUpgrades();
         writeToCookie();
       };
@@ -631,6 +633,7 @@ var drugsMaster = createDrugsMaster();
       $scope.increaseProduction = function (production) {
         if ($scope.gameModel.cash > $scope.productionPrice(production)) {
           $scope.gameModel.cash = $scope.gameModel.cash - $scope.productionPrice(production);
+          $scope.purchaseOffset += $scope.productionPrice(production);
           production.qty++;
           writeToCookie();
         }
@@ -639,6 +642,7 @@ var drugsMaster = createDrugsMaster();
       $scope.hireMuscle = function (muscle) {
         if ($scope.gameModel.cash > $scope.musclePrice(muscle)) {
           $scope.gameModel.cash = $scope.gameModel.cash - $scope.musclePrice(muscle);
+          $scope.purchaseOffset += $scope.musclePrice(muscle);
           muscle.qty++;
           writeToCookie();
         }
@@ -664,6 +668,7 @@ var drugsMaster = createDrugsMaster();
           if (localStorage.getItem("prestigeDealers") !== null) $scope.prestigeDealers = JSON.parse(localStorage.getItem("prestigeDealers"));
           if (localStorage.getItem("kingpins") !== null) $scope.kingpins = JSON.parse(localStorage.getItem("kingpins"));
           if (localStorage.getItem("options") !== null) $scope.options = JSON.parse(localStorage.getItem("options"));
+          $scope.purchaseOffset = -1 * $scope.gameModel.cash;
         } catch (e) {
           console.log(e);
         }
@@ -807,6 +812,7 @@ var drugsMaster = createDrugsMaster();
         return;
 
         $scope.gameModel.cash -= upgrade.realPrice;
+        $scope.purchaseOffset += upgrade.realPrice;
         upgradeDealer.upgrades.push(upgrade);
         upgradeDealer.volume *= upgrade.volumeMod;
         upgradeDealer.price *= upgrade.priceMod;
@@ -868,6 +874,7 @@ var drugsMaster = createDrugsMaster();
       $scope.payBail = function(dealer) {
         if ($scope.gameModel.cash >= dealer.bail) {
           $scope.gameModel.cash -= dealer.bail;
+          $scope.purchaseOffset += dealer.bail;
           dealer.arrested = false;
           dealer.bail = 0;
           dealer.arrestMessage = false;
@@ -996,10 +1003,8 @@ var drugsMaster = createDrugsMaster();
         lastUpdate = updateTime;
         if (updateTime - timeOneSecond >= 1000) {
           timeOneSecond = updateTime;
-          let cps = $scope.gameModel.cash - cashOneSecond;
-          if ($scope.cashPerSecondSum == 0 && cps > 0) {
-            cps = 1;
-          }
+          let cps = $scope.gameModel.cash + $scope.purchaseOffset - cashOneSecond;
+          $scope.purchaseOffset = 0;
           $scope.cashPerSecondSum += cps - $scope.cashPerSecondStore.shift();
           $scope.cashPerSecondStore.push(cps);
           $scope.cashPerSecond = $scope.cashPerSecondSum / $scope.cashPerSecondStore.length;
@@ -1136,6 +1141,11 @@ var drugsMaster = createDrugsMaster();
             $scope.prestigeDealerName = "";
             onReady();
             $scope.refreshDealers();
+            
+            $scope.purchaseOffset = -1 * $scope.gameModel.cash;
+            cashOneSecond = 0;
+            $scope.cashPerSecondSum = 0;
+            $scope.cashPerSecondStore = [0,0,0,0,0,0,0,0,0,0];
           }
           $('#prestigeDealerModal').modal('hide');
         };
@@ -1170,6 +1180,8 @@ var drugsMaster = createDrugsMaster();
             $scope.prestigeDealers = gameSave.prestigeDealers;
             $scope.kingpins = gameSave.kingpins;
             $scope.options = gameSave.options;
+            $scope.purchaseOffset = -1 * $scope.gameModel.cash;
+            cashOneSecond = 0;
 
             $("#exportModal").modal('hide');
 
