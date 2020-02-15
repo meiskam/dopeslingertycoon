@@ -379,6 +379,8 @@ var drugsMaster = createDrugsMaster();
         hideTop : false
       };
       $scope.cashPerSecond = 0;
+      $scope.cashPerSecondSum = 0;
+      $scope.cashPerSecondStore = [0,0,0,0,0,0,0,0,0,0];
       $scope.prestiged = false;
       $scope.hireDealers = [];
       $scope.toggleWorkMode = function () { $scope.options.workMode = !$scope.options.workMode;};
@@ -994,7 +996,13 @@ var drugsMaster = createDrugsMaster();
         lastUpdate = updateTime;
         if (updateTime - timeOneSecond >= 1000) {
           timeOneSecond = updateTime;
-          $scope.cashPerSecond = $scope.gameModel.cash - cashOneSecond;
+          let cps = $scope.gameModel.cash - cashOneSecond;
+          if ($scope.cashPerSecondSum == 0 && cps > 0) {
+            cps = 1;
+          }
+          $scope.cashPerSecondSum += cps - $scope.cashPerSecondStore.shift();
+          $scope.cashPerSecondStore.push(cps);
+          $scope.cashPerSecond = $scope.cashPerSecondSum / $scope.cashPerSecondStore.length;
           cashOneSecond = $scope.gameModel.cash;
 
           for (i = 0; i < dealers.length; i++) {
