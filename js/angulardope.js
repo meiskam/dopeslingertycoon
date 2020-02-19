@@ -88,6 +88,20 @@ function formatNumber(input) {
   return input.toFixed(2);
 }
 
+function formatETA(input) {
+  if (!input | !isFinite(input)) input = 0;
+  if (input >= 86400)
+  return Math.floor(input / 86400) + 'd' + Math.floor((input % 86400)/3600) + 'h';
+  if (input >= 3600)
+  return Math.floor(input / 3600) + 'h' + Math.floor((input % 3600)/60) + 'm';
+  if (input >= 60)
+  return Math.floor(input / 60) + 'm' + Math.floor(input % 60) + 's';
+  if (input <= 0)
+  return '0s';
+
+  return Math.floor(input) + 's';
+}
+
 var productionUpgradesMaster = [
   new ProductionUpgrade('Fertilizer', 'Nutrient rich fertilizer, increases the amount of weed produced by your cannabis plants by 30%!', 500, 'Cannabis Plant', 1.3, 'Weed'),
   new ProductionUpgrade('Hydroponics', 'High tech agriculture system, increases the amount of weed produced by your cannabis plants by 50%!', 6500, 'Cannabis Plant', 1.5, 'Weed'),
@@ -356,6 +370,9 @@ var drugsMaster = createDrugsMaster();
     })
     .filter('money', function () {
       return formatMoney;
+    })
+    .filter('eta', function () {
+      return formatETA;
     })
     .filter('respect', function() {
       return formatNumber;

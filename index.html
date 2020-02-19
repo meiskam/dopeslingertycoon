@@ -185,7 +185,7 @@
                 <div ng-repeat="upgrade in drugResearch | orderBy:'price'" class="mb-10 research-anim">
                     <div class="btn-group" style="width:100%;" role="group">
                         <button ng-click="purchaseUpgrade(upgrade)" style="width:85%;" class="btn btn-default btn-production" ng-disabled="gameModel.cash < upgrade.price * discountMulti()" type="button">
-                            <span class="glyphicon icongreen" ng-class="upgrade.glyph"></span> {{upgrade.name}} (<strong>{{upgrade.price * discountMulti()|money}}</strong>)
+                            <span class="glyphicon icongreen" ng-class="upgrade.glyph"></span> {{upgrade.name}} (<strong>{{upgrade.price * discountMulti()|money}}</strong>) (<strong>{{((upgrade.price * discountMulti()) - gameModel.cash) / cashPerSecond|eta}}</strong>)
                         </button>
                         <button class="btn btn-default btn-production text-center" style="width:15%;padding:6px 0;" onclick="toggleTooltip(this);">
                             <span class="glyphicon icongreen glyphicon-info-sign" style="width:100%;"></span>
@@ -264,7 +264,7 @@
                 <div ng-repeat="upgrade in dealerResearch | orderBy:'price'" class="mb-10 research-anim">
                     <div class="btn-group" style="width:100%;" role="group">
                         <button ng-click="purchaseUpgrade(upgrade)" style="width:85%;" class="btn btn-default btn-distribution" ng-disabled="gameModel.cash < upgrade.price * discountMulti()" type="button">
-                            <span class="glyphicon icongreen" ng-class="upgrade.glyph"></span> {{upgrade.name}} (<strong>{{upgrade.price * discountMulti()|money}}</strong>)
+                            <span class="glyphicon icongreen" ng-class="upgrade.glyph"></span> {{upgrade.name}} (<strong>{{upgrade.price * discountMulti()|money}}</strong>) (<strong>{{((upgrade.price * discountMulti()) - gameModel.cash) / cashPerSecond|eta}}</strong>)
                         </button>
                         <button class="btn btn-default btn-distribution text-center pl-0 pr-0" style="width:15%;" onclick="toggleTooltip(this);">
                             <span class="glyphicon icongreen glyphicon-info-sign" style="width:100%;"></span>
