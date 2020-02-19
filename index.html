@@ -248,7 +248,7 @@
                                     <span class="glyphicon icongreen glyphicon-info-sign" style="width:100%;"></span>
                                 </button>
                             </div>
-                            <div style="display:none;"><p class="jg-tooltip">{{upgrade.tooltip}}</p></div>
+                            <div style="display:none;"><p class="jg-tooltip">{{upgrade.tooltip}}  Break even time: {{(upgrade.price * discountMulti()) / (drugMadePerSecond(drug) * (upgrade.upVal - 1) * drugStreetPrice(drug))|eta}}</p></div>
                             <progressbar animate="false" value="cashPercentage(upgrade.price * discountMulti())" ng-class="gameModel.cash < upgrade.price * discountMulti() ? 'active progress-striped' : 'progress-bar-success'"></progressbar>
                         </div>
                     </div>
