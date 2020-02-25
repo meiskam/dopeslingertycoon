@@ -1107,6 +1107,7 @@ var drugsMaster = createDrugsMaster();
 
               $scope.offlineRespect = $scope.gameModel.respect - respectBefore;
               $scope.offlineCash = $scope.gameModel.cash - cashBefore;
+			  $scope.purchaseOffset += $scope.offlineCash;
 
               $("#offlineModal").modal('show');
             }
